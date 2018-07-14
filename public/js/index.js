@@ -13,34 +13,36 @@ socket.on('disconnect',function (){
 });
 //Receiving data as email on newEmail
 socket.on('newMessage', function (message){
+    var formatedTIme = moment(message.createdAt).format('h:mm a');
     var li= $('<li></li>');
     // alert("hi");
-    li.text(`${message.from} : ${message.text}`);
-
+    li.text(`${message.from} ${formatedTIme}: ${message.text}`);
     $('#messages').append(li);
-    $('[name=message]').val('');
+
 });
 
 socket.on('newLocationMessage',function (message){
+    var formatedTIme = moment(message.createdAt).format('h:mm a');
     var li= $('<li></li>');
     // alert("hi");
     var a = $("<a target='_blank'>My current location</a>");
-    li.text(`${message.from} : `);
+    li.text(`${message.from}  ${formatedTIme}: `);
     a.attr('href',message.url);
     li.append(a);
     $('#messages').append(li);
 
 })
 
+var messageTexbox  =$('[name=message]');
 
 $('#message-form').on('submit',function (e){
     e.preventDefault();
     // alert('hi');
     socket.emit('createMessage',{
-        from:"mike",
-        text:$('[name=message]').val()
+        from:"User",
+        text:messageTexbox.val()
     }, function (data){
-        console.log("got it",data);
+        messageTexbox.val('');
     });
 });
 
@@ -50,13 +52,18 @@ locationButton.on('click',function (){
     if(!navigator.geolocation){
         return alert("geolocation not supported");
     }
+    locationButton.attr('disabled','disabled').text('Sending location...');
     navigator.geolocation.getCurrentPosition(function (position){
         socket.emit("createLocationMessage",{
             latitude:position.coords.latitude,
             longitude:position.coords.longitude
         });
+        locationButton.removeAttr('disabled').text('Send location');
+
     },function (){
         alert("Unable to fetch location");
+        locationButton.removeAttr('disabled').text('Send location');
+
     })
 
 });
