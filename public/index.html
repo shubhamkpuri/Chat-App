@@ -4,20 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello shubham</h1>
+    <h2> Chat App </h2>
+    <ol id="messages">
+
+    </ol>
+
+    <div class="text-center mx auto mt-5">
+
+        <form action="" id="message-form">
+            <input type="text" placeholder="Enter a message" name="message">
+            <br>
+            <br>
+            <button class="btn btn-success">Send</button>
+        </form>
+
+    </div>
+
 
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript">
-        var socket = io();
-        socket.on('connect',()=>{
-            console.log("connected to server");
-        });
-        socket.on('disconnect',()=>{
-            console.log("disconnected from server");
-        });
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/js/index.js">
+
     </script>
 </body>
 
