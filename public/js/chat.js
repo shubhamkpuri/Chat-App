@@ -74,7 +74,7 @@ $('#message-form').on('submit',function (e){
     e.preventDefault();
     // alert('hi');
     socket.emit('createMessage',{
-        from:"User",
+        
         text:messageTexbox.val()
     }, function (data){
         messageTexbox.val('');

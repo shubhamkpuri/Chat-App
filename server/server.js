@@ -38,18 +38,25 @@ io.on('connection', (socket) => {
         callback();
     })
     socket.on('createMessage', (message, callback)=>{
-        console.log("createEmail", message);
-        io.emit('newMessage',generateMessage(message.from,message.text));
-            callback('This is from server');
+        var user =users.getUser(socket.id);
+        if(user && isRealString(message.text)){
+            io.to(user.room).emit('newMessage',generateMessage(user.name,message.text));
+                callback('This is from server');
+        }
+
 
     });
 
     socket.on('createLocationMessage',(coords)=>{
-        io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude, coords.longitude))
+        var user =users.getUser(socket.id);
+        if(user){
+            io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,coords.latitude, coords.longitude));
+        }
+
     })
 
     socket.on('disconnect',()=>{
-        console.log(users.getUser(socket.id));
+
         var user = users.removeUser(socket.id);
         if(user){
             console.log("user left");
