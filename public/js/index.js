@@ -13,23 +13,26 @@ socket.on('disconnect',function (){
 });
 //Receiving data as email on newEmail
 socket.on('newMessage', function (message){
-    var formatedTIme = moment(message.createdAt).format('h:mm a');
-    var li= $('<li></li>');
-    // alert("hi");
-    li.text(`${message.from} ${formatedTIme}: ${message.text}`);
-    $('#messages').append(li);
+    var template= $("#message-template").html();
+     var formatedTime = moment(message.createdAt).format('h:mm a');
+    var html = Mustache.render(template,{
+        from:message.from,
+        text:message.text,
+        createdAt:formatedTime
+    });
+    $('#messages').append(html);
 
 });
 
 socket.on('newLocationMessage',function (message){
-    var formatedTIme = moment(message.createdAt).format('h:mm a');
-    var li= $('<li></li>');
-    // alert("hi");
-    var a = $("<a target='_blank'>My current location</a>");
-    li.text(`${message.from}  ${formatedTIme}: `);
-    a.attr('href',message.url);
-    li.append(a);
-    $('#messages').append(li);
+    var template= $("#location-message-template").html();
+     var formatedTime = moment(message.createdAt).format('h:mm a');
+    var html = Mustache.render(template,{
+        from:message.from,
+        url:message.url,
+        createdAt:formatedTime
+    });
+    $('#messages').append(html);
 
 })
 
