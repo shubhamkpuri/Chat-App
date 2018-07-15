@@ -7,8 +7,6 @@
   font-size: .95rem;
 }
 
-
-
 ul, li {
   list-style-position: inside;
 }
@@ -81,15 +79,14 @@ button:disabled {
   padding: 10px;
 }
 
-.chat {
+body {
   display: flex;
+  flex-direction: row;
 }
-
-.main__container {
+.chat{
     display: flex;
-    flex-direction: row;
-}
 
+}
 .chat__sidebar {
   overflow-y: scroll;
   width: 260px;
@@ -124,28 +121,22 @@ button:disabled {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  max-height: 100vh;
   width: 100%;
   justify-content: space-between;
-  flex-direction: column;
 }
 
 .chat__messages {
-  flex-grow: 1 ;
-  overflow-y: scroll;
+  flex-grow: 1;
+  overflow-y:  scroll;
   -webkit-overflow-scrolling: touch;
+
 }
 
 .chat__footer {
-
   background: #e6eaee;
   display: flex;
-  /* flex-direction:row; */
-  /* width:80%; */
   padding: 10px;
-
-  /* position: fixed;
-  bottom:0; */
-  /*height: 60px;*/
   flex-shrink: 0;
 }
 
@@ -161,10 +152,14 @@ button:disabled {
 .chat__footer input {
   border: none;
   padding: 10px;
-  flex-grow: 1 ;
+  flex-grow: 1;
 }
-
+ol{
+    max-height: 90%;
+overflow-y: scroll;
+}
 .chat__messages {
+
   list-style-type: none;
   padding: 10px;
 }
